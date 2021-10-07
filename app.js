@@ -1,6 +1,6 @@
 //Toglogchiin eeljiig hadgalah huwsagch, 1dugeer toglogch 0, 2dugaar toglogch 2 nomertei
 
-var activePlayer = 1;
+var activePlayer = 0;
 
 //Toglogchdiin tsugluulsan onoog hadgalah huwsagch
 
@@ -24,8 +24,42 @@ var diceDom = document.querySelector(".dice");
 
 diceDom.style.display = "none";
 
+// Шоог шидэх эвэнт листенер
 document.querySelector(".btn-roll").addEventListener("click", function () {
+    // 1 -6 доторх санамсаргүй нэг тоо гаргаж ирнэ
     var diceNumber = Math.floor( Math.random() * 6 ) + 1;
+    // Шооны зургийг вэб дээр гаргаж ирнэ.
     diceDom.style.display = "block";
+    // Буусан санамсаргүй тоонд харгалзах шооны зургийг вэб дээр гаргаж ирнэ.
     diceDom.src = "dice-" + diceNumber + ".png"
+    // Буусан тоон нэгээс ялгаатай бол идвэхтэй Тоглогчийн ээлжийн оноог өөрчилнө.
+    if(diceNumber !== 1){
+        // 1 -с ялгаатай тоо буулаа. Буусан тоог тоглогчид нэмж өгнө.
+        roundScore = roundScore + diceNumber;
+        document.getElementById("current-" + activePlayer ).textContent = roundScore;
+    } else {
+        // 1 буусан тул тоглогчийн ээлчийг энд сольж өгнө.
+
+        //Энэ тоглогчийн ээлжиндээ цуглуулсан оноог 0 болгоно.
+        roundScore = 0;
+        document.getElementById("current-" + activePlayer ).textContent = 0;
+
+        // Тоглогчийн ээлжийг нөгөө тоглогчид шилжүүлнэ.
+
+        // Хэрэв идвэхтэй тоглогч нь 0 байвал идвэхтэй тоглогчийг 1 болго.
+        // Үгүй бол идвэхтэй тоглогч нь 0 болго.
+        // if( activePlayer === 0){
+        //     activePlayer = 1;
+        // } else {
+        //     activePlayer= 0;
+        // }
+        activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+        
+        // Улаан цэгийг шилжүүлэх кодыг хийнэ. 
+        document.querySelector(".player-0-panel").classList.toggle("active");
+        document.querySelector(".player-1-panel").classList.toggle("active");
+
+        // Шоог түр алга болгоно.
+        diceDom.style.display = "none";
+    }
 });
