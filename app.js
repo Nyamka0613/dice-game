@@ -1,28 +1,54 @@
-//Toglogchiin eeljiig hadgalah huwsagch, 1dugeer toglogch 0, 2dugaar toglogch 2 nomertei
+//Тоглоотын бүх газарт ашиглагдах глобаль хувьсагчдыг энд зарлая
+var activePlayer;
 
-var activePlayer = 0;
+// Хоер тоглогчийн цуглуулсан оноонууд 
+var scores;
 
-//Toglogchdiin tsugluulsan onoog hadgalah huwsagch
+// Идвэхтэй тоглогчийн цуглуулж байгаа ээлжийн оноо.
+var roundScore;
 
-var scores = [0, 0];
-
-//Toglogchiin eeljindee tsugluulsan onoog hadgalah huwsagch
-
-var roundScore = 0;
-
-//shoonii ali talaar buusnigg hadgalah huwsagch hergetei 1 -6 gsn utagiig ene huwsagch sanammsargui uusgej ogno 
-
-var diceNumber = Math.floor( Math.random() * 6 ) + 1;
-
-//Programm ehlehed beltgey
-document.getElementById("score-0").textContent = 0;
-document.getElementById("score-1").textContent = 0;
-document.getElementById("current-0").textContent = 0;
-document.getElementById("current-1").textContent = 0;
-
+//Шооны зурагийг үзүүлэх
 var diceDom = document.querySelector(".dice");
 
-diceDom.style.display = "none";
+//Тогломийг эхлгүүлнэ.
+initGame();
+
+//Тогломыг шинээр эхэлхэд бэлтгэнэ.
+function initGame() {
+    //Toglogchiin eeljiig hadgalah huwsagch, 1dugeer toglogch 0, 2dugaar toglogch 2 nomertei
+
+    activePlayer = 0;
+
+    //Toglogchdiin tsugluulsan onoog hadgalah huwsagch
+
+    scores = [0, 0];
+
+    //Toglogchiin eeljindee tsugluulsan onoog hadgalah huwsagch
+
+    roundScore = 0;
+
+
+    //Programm ehlehed beltgey
+    document.getElementById("score-0").textContent = 0;
+    document.getElementById("score-1").textContent = 0;
+    document.getElementById("current-0").textContent = 0;
+    document.getElementById("current-1").textContent = 0;
+
+    //Тоглогчдын нэрийг буцааж гаргах.
+    document.getElementById("name-0").textContent = "Player 1";
+    document.getElementById("name-1").textContent = "Player 2";
+
+    document.querySelector(".player-0-panel").classList.remove("winner");
+    document.querySelector(".player-1-panel").classList.remove("winner");
+
+    document.querySelector(".player-0-panel").classList.remove("active");
+    document.querySelector(".player-1-panel").classList.remove("active");
+
+    document.querySelector(".player-0-panel").classList.add("active");
+
+    diceDom.style.display = "none";
+
+}
 
 // Шоог шидэх эвэнт листенер
 document.querySelector(".btn-roll").addEventListener("click", function () {
@@ -90,6 +116,4 @@ function switchToNextPlayer(){
 }
 
 //Шинэ тоглоом эхлүүлэх товчиний эвэнт листенер.
-document.querySelector(".btn-new").addEventListener("click", function(){
-    alert("click")
-});
+document.querySelector(".btn-new").addEventListener("click", initGame);
